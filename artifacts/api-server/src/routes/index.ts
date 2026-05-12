@@ -1,0 +1,44 @@
+import { Router, type IRouter } from "express";
+import healthRouter from "./health";
+import pricesRouter from "./prices";
+import earnRouter from "./earn";
+import orderbookRouter from "./orderbook";
+import supportRouter from "./support";
+import klinesRouter from "./klines";
+import binanceRouter from "./binance";
+import krakenRouter from "./kraken";
+import walletRouter from "./wallet";
+import adminWalletRouter from "./adminWallet";
+import p2pRouter from "./p2p";
+import adminP2pRouter from "./adminP2p";
+import notificationsRouter from "./notifications";
+import authRouter from "./auth";
+import kycRouter from "./kyc";
+import adminAssetsRouter from "./adminAssets";
+import adminLiquidityRouter from "./adminLiquidity";
+import referralRouter from "./referral";
+import adminReferralRouter from "./adminReferral";
+
+const router: IRouter = Router();
+
+router.use(healthRouter);
+router.use(pricesRouter);
+router.use(earnRouter);
+router.use(orderbookRouter);
+router.use(supportRouter);
+router.use(klinesRouter);
+router.use(binanceRouter);
+router.use(krakenRouter);
+router.use(walletRouter);
+router.use(adminWalletRouter);
+router.use(p2pRouter);
+router.use(adminP2pRouter);
+router.use(notificationsRouter);
+router.use(authRouter);
+router.use(kycRouter);
+router.use(adminAssetsRouter);
+router.use(adminLiquidityRouter);
+router.use(referralRouter);
+router.use(adminReferralRouter);
+
+export default router;
