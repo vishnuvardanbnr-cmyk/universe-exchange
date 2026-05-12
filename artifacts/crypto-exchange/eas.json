@@ -10,7 +10,7 @@
         "buildType": "apk"
       },
       "env": {
-        "EXPO_PUBLIC_API_BASE": ""
+        "EXPO_PUBLIC_API_BASE": "http://31.220.91.79/api"
       }
     },
     "production": {
