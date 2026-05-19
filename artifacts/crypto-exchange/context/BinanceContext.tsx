@@ -3,10 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const STORAGE_KEY = "cryptox_binance_creds_v1";
 
-const API_BASE = (() => {
-  const domain = process.env["EXPO_PUBLIC_DOMAIN"] ?? "";
-  return domain ? `https://${domain}` : "http://localhost:8080";
-})();
+const API_BASE = (process.env.EXPO_PUBLIC_API_BASE ?? "http://localhost:8080").replace(/\/$/, "");
 
 export type BinanceCredentials = {
   apiKey: string;
