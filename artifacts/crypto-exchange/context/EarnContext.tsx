@@ -42,9 +42,7 @@ const EarnContext = createContext<EarnContextValue>({
 });
 
 function getBaseUrl(): string {
-  const domain = process.env["EXPO_PUBLIC_DOMAIN"] ?? "";
-  if (domain) return `https://${domain}`;
-  return "http://localhost:8080";
+  return (process.env.EXPO_PUBLIC_API_BASE ?? "http://localhost:8080").replace(/\/$/, "");
 }
 
 export function EarnProvider({ children }: { children: React.ReactNode }) {
