@@ -92,9 +92,15 @@ const API_BASE = process.env.EXPO_PUBLIC_API_BASE
 
 const MAX_LOGIN_HISTORY = 50;
 
+function fetchWithTimeout(url: string, options: RequestInit = {}, ms = 5000): Promise<Response> {
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), ms);
+  return fetch(url, { ...options, signal: controller.signal }).finally(() => clearTimeout(id));
+}
+
 async function fetchClientInfo(): Promise<{ ip: string; userAgent: string }> {
   try {
-    const res = await fetch(`${API_BASE}/api/auth/client-ip`);
+    const res = await fetchWithTimeout(`${API_BASE}/api/auth/client-ip`);
     if (!res.ok) throw new Error("ip lookup failed");
     const data = await res.json();
     return { ip: String(data.ip ?? "unknown"), userAgent: String(data.userAgent ?? "") };
@@ -105,7 +111,7 @@ async function fetchClientInfo(): Promise<{ ip: string; userAgent: string }> {
 
 async function fetchIsAdmin(userId: string): Promise<boolean> {
   try {
-    const res = await fetch(`${API_BASE}/api/auth/check-admin`, {
+    const res = await fetchWithTimeout(`${API_BASE}/api/auth/check-admin`, {
       headers: { "x-user-id": userId },
     });
     if (!res.ok) return false;
