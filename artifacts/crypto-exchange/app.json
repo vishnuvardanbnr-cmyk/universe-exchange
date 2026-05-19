@@ -24,12 +24,7 @@
       "favicon": "./assets/images/icon.png"
     },
     "plugins": [
-      [
-        "expo-router",
-        {
-          "origin": "http://31.220.91.79/"
-        }
-      ],
+      "expo-router",
       [
         "expo-font",
         {
