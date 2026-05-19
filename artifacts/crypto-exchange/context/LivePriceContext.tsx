@@ -38,10 +38,13 @@ const LivePriceContext = createContext<LivePriceContextType>({
   getTicker: () => null,
 });
 
-const domain = process.env.EXPO_PUBLIC_DOMAIN ?? "";
+const apiBase = (process.env.EXPO_PUBLIC_API_BASE ?? "").replace(/\/$/, "");
 
 function getWsUrl() {
-  if (domain) return `wss://${domain}/api/ws/prices`;
+  if (apiBase) {
+    const wsBase = apiBase.replace(/^http:\/\//, "ws://").replace(/^https:\/\//, "wss://");
+    return `${wsBase}/api/ws/prices`;
+  }
   if (Platform.OS === "web" && typeof window !== "undefined") {
     const proto = window.location.protocol === "https:" ? "wss:" : "ws:";
     return `${proto}//${window.location.host}/api/ws/prices`;
@@ -50,7 +53,7 @@ function getWsUrl() {
 }
 
 function getRestUrl() {
-  if (domain) return `https://${domain}/api/prices`;
+  if (apiBase) return `${apiBase}/api/prices`;
   if (Platform.OS === "web" && typeof window !== "undefined") {
     return `${window.location.origin}/api/prices`;
   }
